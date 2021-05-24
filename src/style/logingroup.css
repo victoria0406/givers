@@ -1,7 +1,8 @@
+
 #back{
     position: absolute;
-    width: 850px;
-    height: 100%;
+    width: 55%;
+    height: 950px;
     right: 0;
     background: #5BE7C4;
     overflow: hidden;
@@ -29,20 +30,21 @@
 
 input{
     background:none;
-    margin: 0px 30px ;
     font-size: 18px;
     border: none; 
-    width: 340px;
-    height: 100px;
+    width: 100%;
 }
 input:focus{
     outline: none; 
+}
+
+.box:hover{
     filter: brightness(80%);
 }
 
 .box{
-    margin: 10px 225px;
-    width: 400px;
+    margin: 10px 25%;
+    width: 50%;
     height: 100px;
 
     background: #F5F7FA;
@@ -70,6 +72,7 @@ input:focus{
 }
 
 /*group*/
+
 
 #local{
     position: absolute;
@@ -153,7 +156,7 @@ input:focus{
 
     font-style: normal;
 }
-.name{
+.name_1{
     font-size: 24px;
     font-weight: bold;
 }

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import '../style/logingroup.css';
 import {Link, Route, BrowserRouter} from "react-router-dom";
 import {db, firebaseApp, firebase} from '../firebase';
+import man from '../man_run.png';
+import woman from '../woman_run.png';
 
 function Login (){
     var size = 1900;
@@ -24,23 +26,19 @@ function Login (){
     const signin = ()=>{
         firebaseApp.auth().signInWithEmailAndPassword(email, pw)
         .then((user) => {
-    
-        console.log(user);
         const uid = (firebaseApp.auth().currentUser || {}).uid
-        console.log(uid); 
-        alert('signin!!');
         window.location.href ='/group/'+uid;
     })
     .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorMessage);
+        alert(errorMessage);
         setError(errorMessage);
         });
     }
     return(
-        <body>
-            <div id="back">
+        <div>
+        <div id="back">
             <div id="workout">WORK OUT TOGETHER</div>
             <div class="box">
                 <input id="id" type="text" onChange={onEmailChange} value={email}/>
@@ -49,8 +47,10 @@ function Login (){
                 <input id="pw" type="text" onChange={onPwChange} value={pw}/>
             </div>
             <div id ="signin" onClick ={signin} >Signin</div>
-            </div>
-        </body> 
+        </div>
+        <img src={man} style={{position:'absolute', left:"20px" ,maxHeight:"900px"}}/>
+        <img src={woman} style={{position:'absolute', left:"60px" ,maxHeight:"1000px"}}/>
+        </div>
     );
 }
 

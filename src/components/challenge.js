@@ -4,9 +4,14 @@ import '../style/challenge.css';
 import {db,firebaseApp, firebase} from "../firebase.js"
 
 
-function Challenge(){
+function Challenge(props){
 
-    var groupname = "HELLO BADMINTON";
+    var size = 1450;
+    var zoom = window.innerWidth / size 
+    document.body.style.zoom = zoom;
+
+    console.log(props.location.state.group);
+    var groupname = props.location.state.group;
     const [mileage, setMileage] = useState(0);
     const [mileage1, setMileage1] = useState();
 
@@ -26,12 +31,19 @@ function Challenge(){
     })
     
     
-    
 
     const [Bet, setBet] = useState(0)
     const [Rgroup, setRgroup] = useState("")
     const [Contents, setContents] = useState("")
 
+    const sendClick = () => {
+
+        if (mileage1 < 0){
+            alert("Your mileage is lack!!")
+            //props.history.go(1);
+            return;
+        }
+    }
     const onBetHandler = (event) => {
         setBet(event.target.value)// event를 발생 시킬 수 있도록 함 --> input을 발생시킬 수 있도록 한 것임
         console.log(Bet);
@@ -54,12 +66,14 @@ function Challenge(){
             <div className="team-name">{groupname}</div>
             <div className="mileage"> {mileage} </div>
             <div className="m">mileage</div>
-            <Link to= './mileage'><button className="M1">MILEAGE</button></Link>
-            <Link to='./challenge'><button className="M2">CHALLENGE</button></Link>
-            <Link to='./management'> <button className="M3">MANAGEMENT</button> </Link>
+            <Link to={{pathname :'./mileage', state : {group: props.location.state.group, user:props.location.state.user}}}><button className="M1">MILEAGE</button></Link>
+        <Link to={{pathname :'./challenge', state : {group: props.location.state.group, user:props.location.state.user}}}><button class ="M2">CHALLENGE</button></Link>
+        <Link to={{pathname :'./management', state : {group: props.location.state.group, user:props.location.state.user}}}><button className="M3">MANAGEMENT</button> </Link>
             
             <div className="warning"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each challenge is 5000 mileages. And if your opponent reject your challenge, you can get it again!</div>
-            <div className="available">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mileage available for betting {mileage1}</div>
+            <div className="available">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mileage available for betting </div>
+            <div className="avail_num">{mileage1} M</div>
+            <div className="avail_line"></div>
             <div className="circle"></div>
             <div className="w">!</div>
             
@@ -73,7 +87,7 @@ function Challenge(){
             <input type="text" id="bettinginput2" value = {Rgroup} onChange={onRgroupHandler}/>
             <div className="contents">Contents</div>
             <textarea type="text" id="bettinginput3" value = {Contents} onChange={onContentsHandler}></textarea>
-            <Link to={{pathname :'./check', state : {rgroup: Rgroup,bet: Bet, contents : Contents, groupname : groupname, mileage : mileage}}}><button className="send">SEND</button> </Link>
+            <Link to={{pathname :'./check', state : {rgroup: Rgroup,bet: Bet, contents : Contents, groupname : groupname, mileage : mileage}}}><button className="send" onClick = {sendClick}>SEND</button> </Link>
             </header>     
         </div>
     );
