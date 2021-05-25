@@ -8,6 +8,7 @@ import tree1  from '../tree1.png'
 import tree2  from '../tree2.png'
 import tree3  from '../tree3.png'
 import loading from '../loading.PNG'
+import _ from 'lodash';
 
 var uid;
 var group_info=[];
@@ -46,11 +47,10 @@ function Group(props){
 
     document.body.style.zoom = zoom;
 
-    const [load,setLoad]=useState(true);
+    const [load,setLoad]=useState(false);
     if(uid==null)  {console.log(load); uid  = props.match.params.id;}
     useEffect(() => {
         function get_info(uid){
-            setLoad(true);
             var ref;
             var my_groups=[];
             ref = db.collection('users').doc(uid);
@@ -71,14 +71,24 @@ function Group(props){
                         group_info[count]={name:item,exercise:exercise,mileage:mileage};
                         console.log(group_info);
                         count++;
-                        if(count==my_groups.length) {setLoad(false);}
+                        //if(count==my_groups.length) {setLoad(false);}
                     })
                 }
             })
         }
         get_info(uid);
-      }, []);
-      if (load) return (<img src= {loading} style={{width:"100%"}}></img>);
+      });
+      if (!load){
+          setTimeout((()=>setLoad(true)),1500);
+          return (
+            <div id="load">
+                <div id="load_m">LOADING</div>
+                <div>Get Mileage and Grow Trees!!</div>
+                <img src={loading}/>
+            </div>);
+      }
+      
+      
       else{ console.log("loaded");
         return (
         <div id="all">
@@ -124,6 +134,7 @@ class Groupcard extends React.Component{
                     <div>{mileage}M</div>
                 </div>
             </div></Link> //이것도 아직 안고쳤어...
+            
         );
     }
 }

@@ -687,7 +687,9 @@ border-spacing:0 15px;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  height:760px;
 }
 .header{
   background-color: #F5F7FA;
+  height:760px;
 }
