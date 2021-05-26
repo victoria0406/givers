@@ -47,7 +47,7 @@ const MoviesPage = (props) =>{
         } 
         fetchAndSetUser();
     },[])
-    //console.log(mychallenges)
+    console.log(mychallenges)
     //console.log(mymileage)
 
     function numberWithCommas(x) {
@@ -71,17 +71,7 @@ const MoviesPage = (props) =>{
         mystate.push(check);
     }
     //console.log(mystate);
-
-    var gg=[];
-    for (var k=0;k<mychallenges.length;k++){
-        const ele={
-            date: mychallenges[k].date,
-            withgroup:mychallenges[k].withgroup,
-            bet: mychallenges[k].bet,
-            state:mystate[k]
-        }
-        gg.push(ele);
-    }
+    
     function lose_button(index){
         var docRef=db.collection("Groups").doc(mygroup);
         
@@ -161,6 +151,19 @@ const MoviesPage = (props) =>{
         }
     }
 
+    console.log(mychallenges)
+    var gg=[];
+    for (var k=0;k<mychallenges.length;k++){
+        const ele={
+            date: mychallenges[k].date,
+            withgroup:mychallenges[k].withgroup,
+            bet: mychallenges[k].bet,
+            state:mystate[k]
+        }
+        gg.push(ele);   
+    }
+    console.log(gg);
+
     for (var l=0;l<mystate.length;l++){
         if(mystate[l]=="accepted"){
             const index=l;
@@ -173,25 +176,32 @@ const MoviesPage = (props) =>{
         else if(mystate[l]=="tie") gg[l].state=<div className="real_tie">TIE</div>
     }
 
+
+    // function getMovies(gg){
+    //     const movies = gg;
+    //     return movies;
+    // }
     const getMovies = () => {
-        const movies = mychallenges;
+        const movies = gg;
+        console.log(gg)
+        console.log(movies)
         return movies;
     }
     
     const [movies, setMovies] = useState({
         data: getMovies(),
         pageSize: 5,
-        currentPage: 1
+        currentPage: 1  
     });
-
+    console.log(movies);
+    
     const handlePageChange = (page) => {
-        setMovies({...movies, currentPage: page});
+       setMovies({...movies, currentPage: page});
     }
+    
     const{ data, pageSize, currentPage } = movies;
     const pageMovies = paginate(data, currentPage, pageSize);
-
     const {length: count } = movies.data;
-
 
     return (
         <>
@@ -215,7 +225,7 @@ const MoviesPage = (props) =>{
                     </tr>
                 
                 <tbody>
-                    {gg.map(movie =>
+                    {pageMovies.map(movie =>
                         <tr key={movie.id} width = "600">
                             <td width = "230" text-align = 'center'className="table_group" >{movie.date}</td>
                             <td width = "300" text-align = 'center' className="table_group">{movie.withgroup}</td>

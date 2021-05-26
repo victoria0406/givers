@@ -130,6 +130,9 @@ input:focus{
 
 /*group*/
 
+#mytreeimage{
+    margin-left:18px;
+}
 
 #load{
     width: 100%;
