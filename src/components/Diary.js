@@ -55,22 +55,22 @@ function Diary(props){
         setSearch(evt.target.value)
     }
     function gotoComponent(){
-        history.replace({pathname:'/component', state: {group: name, user:props.location.state.user}});
+        history.push({pathname:'/component', state: {group: name, user:props.location.state.user}});
     }
 
 
 
     function gotopost(id){
-        history.replace({pathname:'/openDiary/'+id, state : {group: name, user:props.location.state.user}})
+        history.push({pathname:'/openDiary/'+id, state : {group: name, user:props.location.state.user}})
     }
     
 
     function filter(fi,his){
         if(fi=='') {
-            his.replace({pathname :'/Diary/&', state : {group: name, user:props.location.state.user}})
+            his.push({pathname :'/Diary/&', state : {group: name, user:props.location.state.user}})
         }
         else {
-            his.replace({pathname :'/Diary/'+fi, state : {group: name, user:props.location.state.user}})
+            his.push({pathname :'/Diary/'+fi, state : {group: name, user:props.location.state.user}})
     }
         
     };
@@ -157,7 +157,7 @@ function Diary(props){
                     <li class = "diary_d" id ={info.id}>
                         <table id = "table" class="diarytable_d">
                             <tr><td class = "img" onClick = {()=>{gotopost(info.id)}}><img src={info.img} alt="NO IMAGE" class = "set_img"/></td></tr>
-                            <tr><td class = "date">{info.date.year}.{info.date.month},{info.date.day}</td></tr>
+                            <tr><td class = "date">{info.date.year}.{info.date.month}.{info.date.day}</td></tr>
                             <tr><td class = "title" onClick = {()=>{gotopost(info.id)}}>{info.title}</td></tr>
                             <tr><td class = "tag">
                                 {

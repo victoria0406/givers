@@ -163,6 +163,7 @@ const MoviesPage = (props) =>{
         gg.push(ele);   
     }
     console.log(gg);
+    const gg_1=gg;
 
     for (var l=0;l<mystate.length;l++){
         if(mystate[l]=="accepted"){
@@ -181,15 +182,16 @@ const MoviesPage = (props) =>{
     //     const movies = gg;
     //     return movies;
     // }
+
     const getMovies = () => {
-        const movies = gg;
+        const movies = mychallenges;
         console.log(gg)
         console.log(movies)
         return movies;
     }
     
     const [movies, setMovies] = useState({
-        data: getMovies(),
+        data: mychallenges,
         pageSize: 5,
         currentPage: 1  
     });
@@ -225,7 +227,7 @@ const MoviesPage = (props) =>{
                     </tr>
                 
                 <tbody>
-                    {pageMovies.map(movie =>
+                    {gg.map(movie =>
                         <tr key={movie.id} width = "600">
                             <td width = "230" text-align = 'center'className="table_group" >{movie.date}</td>
                             <td width = "300" text-align = 'center' className="table_group">{movie.withgroup}</td>

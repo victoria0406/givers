@@ -10,6 +10,7 @@ import Group from './components/group';
 import DiaryPage from './components/Diary'; 
 import MainPage from './components/main';
 import ComponentPage from './components/component';
+import OpenDiary from './components/openDiary';
 
 import {
   BrowserRouter as Router,
@@ -33,6 +34,7 @@ function App() {
         <Route path='/main' component={MainPage} />
         <Route path='/diary/:id' component={DiaryPage} /> 
         <Route path='/component' component={ComponentPage} />
+        <Route path='/openDiary/:id' component={OpenDiary}/>
       </switch>
     </Router>
   );

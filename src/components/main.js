@@ -98,9 +98,8 @@ function Main(props){
     var mygroup=props.location.state.group;
     var user=props.location.state.user;
 
-
     function filter(fi){
-        history.replace({pathname :'/Diary/'+fi, state : {group: name, user:props.location.state.user}})
+        history.push({pathname :'/Diary/'+fi, state : {group: name, user:props.location.state.user}})
     }
 
     function tagfunc (month,day){   
@@ -368,14 +367,12 @@ function Main(props){
                 if(diary.length==0){   
                     querySnapshot.forEach((doc,i) => {
                         var data = doc.data();
-                        diary.push({date:data["Date"], title:data["Title"], tag:data["Tag"], img:imgTest}); //여긴 테스트용 사진 넣어둠
-                        //date바꾸는 법만 알면 끝
+                        diary.push({date:data["Date"], title:data["Title"], tag:data["Tag"], img:imgTest, id:doc.id}); //여긴 테스트용 사진 넣어둠
+                        //date바꾸는 법만 알면 끝0
                     })
                 }
-                console.log(diary); 
                 recent_diary=diary.slice(-3);
                 recent_diary.reverse();
-                console.log(recent_diary);
                 setLoad(true);
             })
         }
@@ -385,10 +382,8 @@ function Main(props){
     },[])
 
     //if(!load)return(<div>loading</div>)
-    console.log(diary);
     if(!load) return(<div>loading</div>);
     else{
-    console.log(load);
     return(
             <div>
 
@@ -477,7 +472,7 @@ function Main(props){
                     recent_diary.map((d)=>{
                         console.log(d);
                         return(
-                            <Link to="./diary" class = "hover"> 
+                            <Link to={{pathname:'/openDiary/'+d.id, state : {group: name, user:props.location.state.user}}} class = "hover"> 
                             <table class = "diary_1">
                                 <thead>
                                 <tr>
